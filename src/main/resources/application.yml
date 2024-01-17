@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/meal-mate
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:Qwerty1}
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:8ea3d739671fc877d8810dac1fdc69bb93b60ba23b287f5d767ba46373eac681}
+    expiration: ${JWT_EXPIRATION:1800000}
