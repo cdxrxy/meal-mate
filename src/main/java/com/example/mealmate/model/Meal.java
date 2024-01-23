@@ -1,6 +1,5 @@
 package com.example.mealmate.model;
 
-import com.example.mealmate.enums.RoleType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,25 +7,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String email;
+    private String name;
+    private String description;
+    private LocalDateTime dateTime;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     @ToString.Exclude
-    private String password;
-    private String username;
-    @Enumerated(EnumType.STRING)
-    private RoleType role;
-    private Boolean isActive;
-    @OneToMany(mappedBy = "user")
-    private List<Meal> meals;
+    private User user;
 }

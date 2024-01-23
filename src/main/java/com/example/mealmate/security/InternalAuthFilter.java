@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Service
 @RequiredArgsConstructor
-public class AuthJwtFilter extends OncePerRequestFilter {
+public class InternalAuthFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
 
     @Override
@@ -30,9 +31,9 @@ public class AuthJwtFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader(AUTHORIZATION);
         String jwt;
-        if (authHeader == null ||
-                !authHeader.startsWith("Bearer ") ||
-                !jwtService.validateJwt(jwt = authHeader.substring(7))) {
+        if (!StringUtils.hasText(authHeader) ||
+                !authHeader.startsWith("Internal ") ||
+                !jwtService.validateJwt(jwt = authHeader.substring(9))) {
             filterChain.doFilter(request, response);
             return;
         }

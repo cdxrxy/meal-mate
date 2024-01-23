@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class InternalUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 user.getIsActive(),
                 user.getIsActive(),
                 user.getIsActive(),
-                List.of(new SimpleGrantedAuthority(user.getRole()))
+                List.of(new SimpleGrantedAuthority(user.getRole().name()))
         );
     }
 }

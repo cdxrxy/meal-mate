@@ -43,6 +43,7 @@ public class JwtService {
                 .build().parseClaimsJws(jwt)
                 .getBody().getSubject();
     }
+
     public String getRoleFromJwt(String jwt) {
         return Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(jwtSecret.getBytes(UTF_8)))
                 .build().parseClaimsJws(jwt)

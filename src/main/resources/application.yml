@@ -9,9 +9,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      show-sql: true
+    show-sql: true
+  cache:
+    type: redis
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    redis:
+      time-to-live: 36000000
 
 app:
   jwt:
     secret: ${JWT_SECRET:8ea3d739671fc877d8810dac1fdc69bb93b60ba23b287f5d767ba46373eac681}
-    expiration: ${JWT_EXPIRATION:1800000}
+    expiration: ${JWT_EXPIRATION:108000000}
