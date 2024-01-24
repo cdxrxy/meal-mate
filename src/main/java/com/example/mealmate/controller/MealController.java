@@ -1,7 +1,9 @@
 package com.example.mealmate.controller;
 
+import com.example.mealmate.enums.UserType;
 import com.example.mealmate.model.Meal;
 import com.example.mealmate.service.MealService;
+import com.example.mealmate.util.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -18,11 +20,17 @@ public class MealController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public void saveMeal(@RequestBody Meal meal, Authentication authentication) {
-        mealService.saveMeal(meal, authentication.getName());
+        String email = AuthenticationUtil.extractEmail(authentication);
+        UserType type = AuthenticationUtil.extractType(authentication);
+
+        mealService.saveMeal(meal, email, type);
     }
 
     @GetMapping
     public List<Meal> getMeals(Authentication authentication) {
-        return mealService.getMealsByEmail(authentication.getName());
+        String email = AuthenticationUtil.extractEmail(authentication);
+        UserType type = AuthenticationUtil.extractType(authentication);
+
+        return mealService.getMealsByEmail(email, type);
     }
 }

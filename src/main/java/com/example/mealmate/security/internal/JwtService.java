@@ -1,4 +1,4 @@
-package com.example.mealmate.security;
+package com.example.mealmate.security.internal;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

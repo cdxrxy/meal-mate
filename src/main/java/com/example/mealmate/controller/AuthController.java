@@ -3,10 +3,12 @@ package com.example.mealmate.controller;
 import com.example.mealmate.dto.Login;
 import com.example.mealmate.dto.Register;
 import com.example.mealmate.dto.Token;
+import com.example.mealmate.enums.UserType;
 import com.example.mealmate.mapper.UserMapper;
 import com.example.mealmate.model.User;
-import com.example.mealmate.security.JwtService;
+import com.example.mealmate.security.internal.JwtService;
 import com.example.mealmate.service.UserService;
+import com.example.mealmate.util.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -58,6 +60,9 @@ public class AuthController {
 
     @GetMapping("/me")
     public User getCurrentUser(Authentication authentication) {
-        return userService.getUserByEmail(authentication.getName());
+        String email = AuthenticationUtil.extractEmail(authentication);
+        UserType type = AuthenticationUtil.extractType(authentication);
+
+        return userService.getUserByEmailAndType(email, type);
     }
 }

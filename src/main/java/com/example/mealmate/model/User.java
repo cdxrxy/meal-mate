@@ -1,6 +1,7 @@
 package com.example.mealmate.model;
 
 import com.example.mealmate.enums.RoleType;
+import com.example.mealmate.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,8 @@ public class User {
     private String username;
     @Enumerated(EnumType.STRING)
     private RoleType role;
+    @Enumerated(EnumType.STRING)
+    private UserType type;
     private Boolean isActive;
     @OneToMany(mappedBy = "user")
     private List<Meal> meals;

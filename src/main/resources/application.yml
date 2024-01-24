@@ -16,6 +16,18 @@ spring:
     port: ${REDIS_PORT:6379}
     redis:
       time-to-live: 36000000
+  session:
+    store-type: redis
+  servlet:
+    session:
+      timeout: 43200m
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 17276295347-iu2celou0h00348optul0f4410r2p25i.apps.googleusercontent.com
+            clientSecret: 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
 
 app:
   jwt:
