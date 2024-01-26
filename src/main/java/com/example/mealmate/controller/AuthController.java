@@ -9,6 +9,8 @@ import com.example.mealmate.model.User;
 import com.example.mealmate.security.internal.JwtService;
 import com.example.mealmate.service.UserService;
 import com.example.mealmate.util.AuthenticationUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +21,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Авторизация")
 @RestController
 @RequestMapping("/api/meal-mate/v1/auth")
 @RequiredArgsConstructor
@@ -28,6 +31,7 @@ public class AuthController {
     private final UserService userService;
     private final UserMapper userMapper;
 
+    @Operation(summary = "войти с помощью логина и пароля")
     @PostMapping("/login")
     public Token login(@RequestBody Login login) {
         Authentication authentication =
@@ -52,12 +56,14 @@ public class AuthController {
         );
     }
 
+    @Operation(summary = "зарегистрироваться с помощью логина и пароля")
     @PostMapping("/register")
     @ResponseStatus(code = HttpStatus.CREATED)
     public void register(@RequestBody Register register) {
         userService.register(userMapper.registerToUser(register));
     }
 
+    @Operation(summary = "получить ифнормацию о текущем пользователе")
     @GetMapping("/me")
     public User getCurrentUser(Authentication authentication) {
         String email = AuthenticationUtil.extractEmail(authentication);

@@ -33,6 +33,8 @@ public class SecurityConfig {
         add("/api/meal-mate/v1/auth/login");
         add("/api/meal-mate/v1/auth/register");
         add("/error");
+        add("/swagger-ui/**");
+        add("/v3/api-docs/**");
     }};
 
     @Bean
@@ -64,7 +66,10 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("/error").permitAll()
+                                .requestMatchers(
+                                        "/error",
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**").permitAll()
                                 .anyRequest().authenticated())
                 .oauth2Login(oauth2 ->
                         oauth2
