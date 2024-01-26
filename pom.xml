@@ -13,6 +13,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>mealmate</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
 	<name>mealmate</name>
 	<description>MealMale Project</description>
 
@@ -92,6 +93,8 @@
 	</dependencies>
 
 	<build>
+		<finalName>mealmate</finalName>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
