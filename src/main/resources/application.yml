@@ -11,11 +11,12 @@ spring:
       ddl-auto: update
     show-sql: true
   cache:
-    type: redis
-    host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6379}
     redis:
       time-to-live: 36000000
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
   session:
     store-type: redis
   servlet:
