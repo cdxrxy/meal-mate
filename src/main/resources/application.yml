@@ -10,13 +10,13 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  cache:
-    redis:
-      time-to-live: 36000000
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+  cache:
+    redis:
+      time-to-live: 36000000
   session:
     store-type: redis
   servlet:
