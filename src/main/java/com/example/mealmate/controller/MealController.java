@@ -1,5 +1,6 @@
 package com.example.mealmate.controller;
 
+import com.example.mealmate.dto.MealCriteria;
 import com.example.mealmate.enums.UserType;
 import com.example.mealmate.model.Meal;
 import com.example.mealmate.service.MealService;
@@ -32,10 +33,10 @@ public class MealController {
 
     @Operation(summary = "получить информацию о приемах пищи текущего пользователя")
     @GetMapping
-    public List<Meal> getMeals(Authentication authentication) {
+    public List<Meal> getMealsByCriteria(Authentication authentication, MealCriteria mealCriteria) {
         String email = AuthenticationUtil.extractEmail(authentication);
         UserType type = AuthenticationUtil.extractType(authentication);
 
-        return mealService.getMealsByEmail(email, type);
+        return mealService.getMealsByCriteria(email, type, mealCriteria);
     }
 }
