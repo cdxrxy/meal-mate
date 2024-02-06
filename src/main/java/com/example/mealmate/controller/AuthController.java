@@ -7,6 +7,7 @@ import com.example.mealmate.enums.UserType;
 import com.example.mealmate.mapper.UserMapper;
 import com.example.mealmate.model.User;
 import com.example.mealmate.security.internal.JwtService;
+import com.example.mealmate.service.InternalAuthService;
 import com.example.mealmate.service.UserService;
 import com.example.mealmate.util.AuthenticationUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,41 +27,22 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/meal-mate/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final AuthenticationManager authenticationManager;
-    private final JwtService jwtService;
+    private final InternalAuthService internalAuthService;
     private final UserService userService;
     private final UserMapper userMapper;
 
     @Operation(summary = "войти с помощью логина и пароля")
     @PostMapping("/login")
     public Token login(@RequestBody Login login) {
-        Authentication authentication =
-                authenticationManager
-                        .authenticate(
-                                new UsernamePasswordAuthenticationToken(
-                                        login.getEmail(), login.getPassword()
-                                )
-                        );
-
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(authentication);
-        SecurityContextHolder.setContext(securityContext);
-
-        return new Token(jwtService.generateToken(
-                login.getEmail(),
-                authentication.getAuthorities()
-                        .stream()
-                        .map(GrantedAuthority::getAuthority)
-                        .findFirst()
-                        .get())
-        );
+        return internalAuthService.authenticate(login);
     }
 
     @Operation(summary = "зарегистрироваться с помощью логина и пароля")
     @PostMapping("/register")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void register(@RequestBody Register register) {
+    public Token register(@RequestBody Register register) {
         userService.register(userMapper.registerToUser(register));
+        return internalAuthService.authenticate(new Login(register.getEmail(), register.getPassword()));
     }
 
     @Operation(summary = "получить ифнормацию о текущем пользователе")
