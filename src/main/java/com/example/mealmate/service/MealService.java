@@ -33,7 +33,7 @@ public class MealService {
                         .and(MealSpecification.hasName(mealCriteria.getName()))
                         .and(MealSpecification.hasDateFrom(mealCriteria.getDateFrom()))
                         .and(MealSpecification.hasDateTo(mealCriteria.getDateTo())),
-                Sort.by("id")
+                Sort.by("id").reverse()
         );
     }
 }

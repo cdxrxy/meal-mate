@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     @EntityGraph(attributePaths = "meals")
     Optional<User> findByEmailAndType(String email, UserType type);
+
+    boolean existsByEmailAndType(String email, UserType type);
 }
