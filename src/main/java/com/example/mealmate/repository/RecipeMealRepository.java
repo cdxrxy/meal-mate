@@ -1,6 +1,6 @@
 package com.example.mealmate.repository;
 
-import com.example.mealmate.model.Meal;
+import com.example.mealmate.model.RecipeMeal;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MealRepository extends JpaRepository<Meal, Long>, JpaSpecificationExecutor<Meal> {
+public interface RecipeMealRepository extends JpaRepository<RecipeMeal, Long>, JpaSpecificationExecutor<RecipeMeal> {
     @EntityGraph(attributePaths = "user")
-    Page<Meal> findAll(Specification<Meal> specification, Pageable pageable);
+    Page<RecipeMeal> findAll(Specification<RecipeMeal> specification, Pageable pageable);
 }

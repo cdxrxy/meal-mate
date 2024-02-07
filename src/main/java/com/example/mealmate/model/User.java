@@ -32,4 +32,6 @@ public class User {
     private Boolean isActive;
     @OneToMany(mappedBy = "user")
     private List<Meal> meals;
+    @OneToMany(mappedBy = "user")
+    private List<RecipeMeal> recipeMeals;
 }

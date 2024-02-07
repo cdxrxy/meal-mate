@@ -8,6 +8,7 @@ import com.example.mealmate.util.AuthenticationUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ import java.util.List;
 public class MealController {
     private final MealService mealService;
 
-    @Operation(summary = "сохранить информацию о приеме пищи текущего пользователя")
+    @Operation(summary = "сохранить информацию о приеме пищи введенного вручную для текущего пользователя")
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public void saveMeal(@RequestBody Meal meal, Authentication authentication) {
@@ -31,9 +32,9 @@ public class MealController {
         mealService.saveMeal(meal, email, type);
     }
 
-    @Operation(summary = "получить информацию о приемах пищи текущего пользователя")
+    @Operation(summary = "получить информацию о приемах пищи введенных вручную для текущего пользователя")
     @GetMapping
-    public List<Meal> getMealsByCriteria(Authentication authentication, MealCriteria mealCriteria) {
+    public Page<Meal> getMealsByCriteria(Authentication authentication, MealCriteria mealCriteria) {
         String email = AuthenticationUtil.extractEmail(authentication);
         UserType type = AuthenticationUtil.extractType(authentication);
 

@@ -13,20 +13,15 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Meal {
+public class RecipeMeal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String description;
-    private Float calories;
-    private Float protein;
-    private Float fat;
-    private Float carbs;
-    private LocalDateTime dateTime;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     @ToString.Exclude
     private User user;
+    private Long recipeId;
+    private LocalDateTime dateTime;
 }

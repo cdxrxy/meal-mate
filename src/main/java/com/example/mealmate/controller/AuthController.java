@@ -3,6 +3,7 @@ package com.example.mealmate.controller;
 import com.example.mealmate.dto.Login;
 import com.example.mealmate.dto.Register;
 import com.example.mealmate.dto.Token;
+import com.example.mealmate.dto.UserProfile;
 import com.example.mealmate.enums.UserType;
 import com.example.mealmate.mapper.UserMapper;
 import com.example.mealmate.model.User;
@@ -10,6 +11,7 @@ import com.example.mealmate.security.internal.JwtService;
 import com.example.mealmate.service.InternalAuthService;
 import com.example.mealmate.service.UserService;
 import com.example.mealmate.util.AuthenticationUtil;
+import com.example.mealmate.util.UserUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -47,10 +49,12 @@ public class AuthController {
 
     @Operation(summary = "получить ифнормацию о текущем пользователе")
     @GetMapping("/me")
-    public User getCurrentUser(Authentication authentication) {
+    public UserProfile getCurrentUser(Authentication authentication) {
         String email = AuthenticationUtil.extractEmail(authentication);
         UserType type = AuthenticationUtil.extractType(authentication);
 
-        return userService.getUserByEmailAndType(email, type);
+        return UserUtil.userToProfile(
+                userService.getUserByEmailAndType(email, type)
+        );
     }
 }

@@ -9,8 +9,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MealCriteria {
-    private String name;
+public class RecipeMealCriteria {
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private Integer pageNumber;

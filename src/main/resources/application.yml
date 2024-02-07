@@ -16,7 +16,7 @@ spring:
       port: ${REDIS_PORT:6379}
   cache:
     redis:
-      time-to-live: 36000000
+      time-to-live: 3600000
   session:
     store-type: redis
   servlet:
@@ -34,3 +34,7 @@ app:
   jwt:
     secret: ${JWT_SECRET:8ea3d739671fc877d8810dac1fdc69bb93b60ba23b287f5d767ba46373eac681}
     expiration: ${JWT_EXPIRATION:108000000}
+  nutrition:
+    api:
+      key: 7075c6fbf1bf46edb8e0cdc8a321e523
+      url: https://api.spoonacular.com
