@@ -7,6 +7,7 @@ import com.example.mealmate.dto.ingredient.IngredientSearchResponse;
 import com.example.mealmate.service.IngredientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,7 @@ public class IngredientController {
 
     @GetMapping("/search")
     @Operation(summary = "Получить ингредиенты по критериям")
-    public IngredientSearchResponse getIngredientsByCriteria(IngredientCriteria ingredientCriteria) {
+    public IngredientSearchResponse getIngredientsByCriteria(@Valid IngredientCriteria ingredientCriteria) {
         return ingredientService.getIngredientsByCriteria(ingredientCriteria);
     }
 
