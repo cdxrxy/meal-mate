@@ -1,8 +1,10 @@
 package com.example.mealmate.service;
 
-import com.example.mealmate.enums.RoleType;
+import com.example.mealmate.dto.UpdateUser;
 import com.example.mealmate.enums.UserType;
 import com.example.mealmate.exception.UserAlreadyExistsException;
+import com.example.mealmate.exception.UserNotExistsException;
+import com.example.mealmate.mapper.UserMapper;
 import com.example.mealmate.model.User;
 import com.example.mealmate.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
     public User getUserByEmailAndType(String email, UserType type) {
-        return userRepository.findByEmailAndType(email, type).orElseThrow();
+        return userRepository.findByEmailAndType(email, type)
+                .orElseThrow(() -> new UserNotExistsException("Such user does not exist"));
     }
 
     @Transactional
@@ -28,6 +32,16 @@ public class UserService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void updateUserByEmailAndType(String email, UserType type, UpdateUser updateUser) {
+        User user = userRepository.findByEmailAndType(email, type)
+                .orElseThrow(() -> new UserNotExistsException("Such user does not exist"));
+
+        userMapper.updateUser(updateUser, user);
+
         userRepository.save(user);
     }
 }

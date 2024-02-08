@@ -1,7 +1,5 @@
 package com.example.mealmate.dto;
 
-import com.example.mealmate.enums.RoleType;
-import com.example.mealmate.enums.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,13 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserProfile {
-    private Long id;
-    private String email;
+public class UpdateUser {
     private String firstName;
     private String lastname;
     private Integer age;
-    private RoleType role;
-    private UserType type;
-    private Boolean isActive;
 }

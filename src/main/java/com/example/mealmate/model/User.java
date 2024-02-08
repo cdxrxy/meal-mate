@@ -24,7 +24,9 @@ public class User {
     @JsonIgnore
     @ToString.Exclude
     private String password;
-    private String username;
+    private String firstName;
+    private String lastname;
+    private Integer age;
     @Enumerated(EnumType.STRING)
     private RoleType role;
     @Enumerated(EnumType.STRING)

@@ -1,5 +1,7 @@
 package com.example.mealmate.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Register {
+    @Email(message = "Invalid email")
+    @NotBlank(message = "Empty email")
     private String email;
+    @NotBlank(message = "Empty password")
     private String password;
-    private String username;
 }
