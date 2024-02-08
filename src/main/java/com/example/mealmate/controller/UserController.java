@@ -19,8 +19,8 @@ public class UserController {
 
     @PatchMapping
     @Operation(summary = "Обновить информацию о текущем пользователе")
-    public void updateUserById(Authentication authentication,
-                               @RequestBody UpdateUser updateUser) {
+    public void updateCurrentUser(Authentication authentication,
+                                  @RequestBody UpdateUser updateUser) {
         String email = AuthenticationUtil.extractEmail(authentication);
         UserType type = AuthenticationUtil.extractType(authentication);
 
