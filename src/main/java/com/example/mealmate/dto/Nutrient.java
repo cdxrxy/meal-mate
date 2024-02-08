@@ -1,4 +1,4 @@
-package com.example.mealmate.dto.recipe;
+package com.example.mealmate.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

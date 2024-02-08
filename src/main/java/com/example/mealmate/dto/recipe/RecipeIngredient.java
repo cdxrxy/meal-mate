@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ingredient {
+public class RecipeIngredient {
     private Long id;
     private String nameClean;
     private MeasureWrapper measures;

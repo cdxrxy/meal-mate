@@ -33,6 +33,6 @@ public class Recipe {
     private Boolean veryPopular;
     private Boolean whole30;
     private List<String> dishTypes;
-    private List<Ingredient> extendedIngredients;
+    private List<RecipeIngredient> extendedIngredients;
     private String summary;
 }

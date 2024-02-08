@@ -1,6 +1,6 @@
 package com.example.mealmate.client;
 
-import com.example.mealmate.dto.recipe.Nutrition;
+import com.example.mealmate.dto.Nutrition;
 import com.example.mealmate.dto.recipe.Recipe;
 import com.example.mealmate.dto.recipe.RecipeCriteria;
 import com.example.mealmate.dto.recipe.RecipeSearchResponse;
@@ -31,7 +31,7 @@ public class RecipeClient {
         String endpoint = UriComponentsBuilder
                 .fromUriString(apiUrl + "/complexSearch")
                 .queryParam("apiKey", apiKey)
-                .queryParams(buildSearchRecipesUri(recipeCriteria))
+                .queryParams(buildSearchRecipesParams(recipeCriteria))
                 .build()
                 .toUriString();
 
@@ -74,7 +74,7 @@ public class RecipeClient {
         return restTemplate.getForObject(endpoint, Nutrition.class);
     }
 
-    private MultiValueMap<String, String> buildSearchRecipesUri(RecipeCriteria recipeCriteria) {
+    private MultiValueMap<String, String> buildSearchRecipesParams(RecipeCriteria recipeCriteria) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
         if (StringUtils.hasText(recipeCriteria.getQuery())) {
@@ -134,6 +134,6 @@ public class RecipeClient {
 
     @PostConstruct
     public void init() {
-        this.apiUrl = apiUrl + "/recipes";
+        this.apiUrl += "/recipes";
     }
 }
