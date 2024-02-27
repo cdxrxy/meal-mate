@@ -11,12 +11,16 @@ import com.example.mealmate.service.UserService;
 import com.example.mealmate.util.AuthenticationUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Авторизация")
@@ -27,6 +31,18 @@ public class AuthController {
     private final InternalAuthService internalAuthService;
     private final UserService userService;
     private final UserMapper userMapper;
+    private final OAuth2AuthorizedClientRepository repository;
+
+    @GetMapping("/token")
+    public String token(Authentication authentication, HttpServletRequest request) throws IllegalAccessException {
+        if (authentication instanceof OAuth2AuthenticationToken token) {
+            String clientId = token.getAuthorizedClientRegistrationId();
+            OAuth2AuthorizedClient client = repository.loadAuthorizedClient(clientId, token, request);
+            return client.getAccessToken().getTokenValue();
+        }
+
+        throw new IllegalArgumentException("");
+    }
 
     @Operation(summary = "Войти с помощью логина и пароля")
     @PostMapping("/login")
