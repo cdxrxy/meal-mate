@@ -2,7 +2,6 @@ package com.example.mealmate.util;
 
 import com.example.mealmate.enums.UserType;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 public class AuthenticationUtil {

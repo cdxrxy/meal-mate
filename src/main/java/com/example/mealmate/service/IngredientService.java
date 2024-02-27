@@ -6,7 +6,6 @@ import com.example.mealmate.dto.ingredient.IngredientCriteria;
 import com.example.mealmate.dto.ingredient.IngredientInformationCriteria;
 import com.example.mealmate.dto.ingredient.IngredientSearchResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service

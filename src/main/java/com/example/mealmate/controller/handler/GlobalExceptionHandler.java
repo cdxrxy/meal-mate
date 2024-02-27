@@ -3,7 +3,6 @@ package com.example.mealmate.controller.handler;
 import com.example.mealmate.dto.ErrorResponse;
 import com.example.mealmate.exception.UserAlreadyExistsException;
 import com.example.mealmate.exception.UserNotExistsException;
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

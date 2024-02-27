@@ -13,8 +13,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -34,14 +32,14 @@ public class AuthController {
     private final OAuth2AuthorizedClientRepository repository;
 
     @GetMapping("/token")
-    public String token(Authentication authentication, HttpServletRequest request) throws IllegalAccessException {
+    public String token(Authentication authentication, HttpServletRequest request) {
         if (authentication instanceof OAuth2AuthenticationToken token) {
             String clientId = token.getAuthorizedClientRegistrationId();
             OAuth2AuthorizedClient client = repository.loadAuthorizedClient(clientId, token, request);
             return client.getAccessToken().getTokenValue();
         }
 
-        throw new IllegalArgumentException("");
+        throw new IllegalArgumentException("Authentication must be of OAuth2AuthenticationToken type");
     }
 
     @Operation(summary = "Войти с помощью логина и пароля")
